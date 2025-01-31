@@ -17,7 +17,7 @@ fi
 
 # Создаем директорию в HDFS
 log "Creating directory in HDFS"
-hdfs dfs -mkdir -f -p /user/ubuntu/data
+hdfs dfs -mkdir -p /user/ubuntu/data
 
 # Копируем данные из S3 в зависимости от того, передано ли имя файла
 if [ -n "$FILE_NAME" ]; then
