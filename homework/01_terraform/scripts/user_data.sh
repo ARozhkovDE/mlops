@@ -110,12 +110,19 @@ TARGET_BUCKET=${s3_bucket}
 
 # Копируем конкретный файл из исходного бакета в наш новый бакет
 log "Copying file from source bucket to destination bucket"
-FILE_NAME="2022-11-04.txt"
-s3cmd cp \
-    --config=/home/ubuntu/.s3cfg \
-    --acl-public \
-    s3://otus-mlops-source-data/$FILE_NAME \
-    s3://$TARGET_BUCKET/$FILE_NAME
+#FILE_NAME="2022-11-04.txt"
+#FILE_NAME = ""
+
+s3cmd ls -l s3://otus-mlops-source-data/  | awk '{printf $NF}' | sed "s/s3/\ns3/g" | sed '/^$/d' > file_list
+
+while read line; do
+    echo $line
+    s3cmd cp \
+        --config=/home/ubuntu/.s3cfg \
+        --acl-public \
+        $line \
+        s3://$TARGET_BUCKET/
+    done < file_list
 
 # Проверяем успешность копирования
 if [ $? -eq 0 ]; then

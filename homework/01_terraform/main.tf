@@ -140,7 +140,8 @@ resource "yandex_dataproc_cluster" "dataproc_cluster" {
       services = ["HDFS", "YARN", "SPARK"]
       properties = {
         "yarn:yarn.resourcemanager.am.max-attempts" = 5
-        "hdfs:hdfs.replication_factor" = 1
+        "hdfs:dfs.replication" = 1
+        "hdfs:ftp.replication" = 1
       }
       
       ssh_public_keys = [file(var.public_key_path)]
