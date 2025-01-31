@@ -114,6 +114,7 @@ log "Copying file from source bucket to destination bucket"
 #FILE_NAME = ""
 
 s3cmd ls -l s3://otus-mlops-source-data/  | awk '{printf $NF}' | sed "s/s3/\ns3/g" | sed '/^$/d' > file_list
+echo "" >> file_list
 
 while read line; do
     echo $line
